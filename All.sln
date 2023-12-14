@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33627.172
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{12C2B93C-848A-420F-A6E6-ABFF934A15D5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{21E0A1DA-A298-45AB-AB6C-DE617B336242}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tenaris.Tamsa.View.Reports", "source\app\Tenaris.Tamsa.View.Reports\Tenaris.Tamsa.View.Reports.csproj", "{EBCBB31B-2AE8-45E5-90F9-758CE9F6592E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tenaris.Tamsa.View.Reports.Model", "source\library\Tenaris.Tamsa.View.Reports.Model\Tenaris.Tamsa.View.Reports.Model.csproj", "{9587B465-C865-4E53-B5E3-C7690C3DF298}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tenaris.Tamsa.View.Reports.ViewModel", "source\library\Tenaris.Tamsa.View.ViewModel\Tenaris.Tamsa.View.Reports.ViewModel.csproj", "{40298671-070C-4497-8432-235685057C8A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tenaris.Tamsa.View.Reports.Language", "source\library\Tenaris.Tamsa.Reports.View.Language\Tenaris.Tamsa.View.Reports.Language.csproj", "{17579CA0-92F0-4FB5-84A4-D7811E139485}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EBCBB31B-2AE8-45E5-90F9-758CE9F6592E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBCBB31B-2AE8-45E5-90F9-758CE9F6592E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBCBB31B-2AE8-45E5-90F9-758CE9F6592E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBCBB31B-2AE8-45E5-90F9-758CE9F6592E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9587B465-C865-4E53-B5E3-C7690C3DF298}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9587B465-C865-4E53-B5E3-C7690C3DF298}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9587B465-C865-4E53-B5E3-C7690C3DF298}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9587B465-C865-4E53-B5E3-C7690C3DF298}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40298671-070C-4497-8432-235685057C8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40298671-070C-4497-8432-235685057C8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40298671-070C-4497-8432-235685057C8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40298671-070C-4497-8432-235685057C8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17579CA0-92F0-4FB5-84A4-D7811E139485}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17579CA0-92F0-4FB5-84A4-D7811E139485}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17579CA0-92F0-4FB5-84A4-D7811E139485}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17579CA0-92F0-4FB5-84A4-D7811E139485}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EBCBB31B-2AE8-45E5-90F9-758CE9F6592E} = {12C2B93C-848A-420F-A6E6-ABFF934A15D5}
+		{9587B465-C865-4E53-B5E3-C7690C3DF298} = {21E0A1DA-A298-45AB-AB6C-DE617B336242}
+		{40298671-070C-4497-8432-235685057C8A} = {21E0A1DA-A298-45AB-AB6C-DE617B336242}
+		{17579CA0-92F0-4FB5-84A4-D7811E139485} = {21E0A1DA-A298-45AB-AB6C-DE617B336242}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E82E5261-D324-4D05-85CF-A5313B08DB56}
+	EndGlobalSection
+EndGlobal

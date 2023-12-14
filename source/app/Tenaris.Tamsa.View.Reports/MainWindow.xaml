@@ -1,0 +1,23 @@
+﻿<Window x:Class="Tenaris.Tamsa.View.Reports.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tenaris.Tamsa.View.Reports"
+        mc:Ignorable="d"
+        Title="Información de Tubos" Height="450" Width="800" Loaded="Window_Loaded">
+    <Window.Resources>
+        <local:TenarisPipesDataSet1 x:Key="TenarisPipesDataSet1"/>
+        <CollectionViewSource x:Key="informationPipesViewSource" Source="{Binding InformationPipes, Source={StaticResource TenarisPipesDataSet1}}"/>
+    </Window.Resources>
+    <Window.DataContext>
+        <Binding Path="MainWindowVM" Source="{StaticResource dataInstances}"></Binding>
+    </Window.DataContext>
+    <Grid>
+        <Button Background="SkyBlue" Margin="571,23,92,363" Padding="3" x:Name="btnNuevo" Click="btnNuevo_Click" Content="Nuevo" ></Button>
+        <Button Background="SkyBlue" Margin="571,91,92,295" Padding="3" x:Name="btnGuardar" Click="btnGuardar_Click" Content="Guardar" RenderTransformOrigin="1.127,0.437"/>
+        <Button Background="PapayaWhip" Margin="571,169,92,217" Padding="3" x:Name="btnActualizar" Click="btnActualizar_Click" Content="Actualizar" IsEnabled="False" RenderTransformOrigin="1.127,0.437"/>
+        <Button Background="PaleVioletRed" Margin="571,253,92,133" Padding="3" x:Name="btnEliminar" Click="btnEliminar_Click" Content="Eliminar" IsEnabled="False" RenderTransformOrigin="1.127,0.437"/>
+
+    </Grid>
+</Window>
