@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tenaris.Tamsa.View.Reports"
         mc:Ignorable="d"
-        Title="Información de Tubos" Height="450" Width="800" Loaded="Window_Loaded">
+        Title="Información de Tubos" Height="450" Width="800" >
+    
+    
     <Window.Resources>
         <local:TenarisPipesDataSet1 x:Key="TenarisPipesDataSet1"/>
         <CollectionViewSource x:Key="informationPipesViewSource" Source="{Binding InformationPipes, Source={StaticResource TenarisPipesDataSet1}}"/>
@@ -13,6 +15,8 @@
     <Window.DataContext>
         <Binding Path="MainWindowVM" Source="{StaticResource dataInstances}"></Binding>
     </Window.DataContext>
+
+
     <Grid>
         <Button Background="SkyBlue" Margin="571,23,92,363" Padding="3" x:Name="btnNuevo" Click="btnNuevo_Click" Content="Nuevo" ></Button>
         <Button Background="SkyBlue" Margin="571,91,92,295" Padding="3" x:Name="btnGuardar" Click="btnGuardar_Click" Content="Guardar" RenderTransformOrigin="1.127,0.437"/>
@@ -20,4 +24,8 @@
         <Button Background="PaleVioletRed" Margin="571,253,92,133" Padding="3" x:Name="btnEliminar" Click="btnEliminar_Click" Content="Eliminar" IsEnabled="False" RenderTransformOrigin="1.127,0.437"/>
 
     </Grid>
+
+    
 </Window>
+    
+    

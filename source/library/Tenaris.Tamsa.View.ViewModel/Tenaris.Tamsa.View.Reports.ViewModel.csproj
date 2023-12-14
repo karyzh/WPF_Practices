@@ -50,6 +50,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Practica Uno\All\_temp\_bin\Prism\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -63,7 +64,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataAccess2.cs" />
     <Compile Include="Entities\ComponentData.cs" />
     <Compile Include="Entities\ComponentsWindows.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

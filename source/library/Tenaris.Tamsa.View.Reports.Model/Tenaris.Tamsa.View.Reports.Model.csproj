@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,8 +42,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\ReportsConfiguration.cs" />
+    <Compile Include="DataAccess\DataAccess.cs" />
+    <Compile Include="DataAccess\DataAccess2.cs" />
     <Compile Include="MainModel.cs" />
+    <Compile Include="Models\Pipe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tenaris.Tamsa.Reports.View.Language\Tenaris.Tamsa.View.Reports.Language.csproj">
+      <Project>{17579ca0-92f0-4fb5-84a4-d7811e139485}</Project>
+      <Name>Tenaris.Tamsa.View.Reports.Language</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

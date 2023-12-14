@@ -28,19 +28,19 @@ namespace Tenaris.Tamsa.View.Reports
             InitializeComponent();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
+        //private void Window_Loaded(object sender, RoutedEventArgs e)
+        //{
 
-            using (Tenaris.Tamsa.View.Reports.TenarisPipesDataSet1 tenarisPipesDataSet1 = ((Tenaris.Tamsa.View.Reports.TenarisPipesDataSet1)(this.FindResource("tenarisPipesDataSet1"))))
-            {
-                // Load data into the table InformationPipes. You can modify this code as needed.
-                Tenaris.Tamsa.View.Reports.TenarisPipesDataSet1TableAdapters.InformationPipesTableAdapter tenarisPipesDataSet1InformationPipesTableAdapter = new Tenaris.Tamsa.View.Reports.TenarisPipesDataSet1TableAdapters.InformationPipesTableAdapter();
-                tenarisPipesDataSet1InformationPipesTableAdapter.Fill(tenarisPipesDataSet1.InformationPipes);
-            }
+        //    Tenaris.Tamsa.View.Reports.TenarisPipesDataSet1 tenarisPipesDataSet1 = ((Tenaris.Tamsa.View.Reports.TenarisPipesDataSet1)(this.FindResource("tenarisPipesDataSet1")));
+        //    {
+        //        // Load data into the table InformationPipes. You can modify this code as needed.
+        //        Tenaris.Tamsa.View.Reports.TenarisPipesDataSet1TableAdapters.InformationPipesTableAdapter tenarisPipesDataSet1InformationPipesTableAdapter = new Tenaris.Tamsa.View.Reports.TenarisPipesDataSet1TableAdapters.InformationPipesTableAdapter();
+        //        tenarisPipesDataSet1InformationPipesTableAdapter.Fill(tenarisPipesDataSet1.InformationPipes);
+        //    }
 
-            System.Windows.Data.CollectionViewSource informationPipesViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("informationPipesViewSource")));
-            informationPipesViewSource.View.MoveCurrentToFirst();
-        }
+        //    System.Windows.Data.CollectionViewSource informationPipesViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("informationPipesViewSource")));
+        //    informationPipesViewSource.View.MoveCurrentToFirst();
+        //}
 
         private void btnNuevo_Click(object sender, RoutedEventArgs e)
         {

@@ -21,18 +21,20 @@ namespace Tenaris.Tamsa.View.ViewModel
 
         private SqlTransaction TR;
 
-        
-    //public int GuardarNuevoTubo()
-    //{
-    //        CN = new SqlConnection(cadenaConexion);
-    //        CMD = new SqlCommand();
-    //        CMD.Connection = CN;
-    //        CMD.CommandType = CommandType.Text;
 
-    //        CMD.CommandText = "INSERT INTO dbo.InformationPipes (ID, Heat, WO, CreateDate, UpdateDate)" +
-    //            "VALUES (@id, @heat, @wo, SYSDATETIME(), SYSDATETIME());";
-    //}
-}
+        //public int GuardarNuevoTubo()
+        //{
+        //        CN = new SqlConnection(cadenaConexion);
+        //        CMD = new SqlCommand();
+        //        CMD.Connection = CN;
+        //        CMD.CommandType = CommandType.Text;
+
+        //        CMD.CommandText = "INSERT INTO dbo.InformationPipes (ID, Heat, WO, CreateDate, UpdateDate)" +
+        //            "VALUES (@id, @heat, @wo, SYSDATETIME(), SYSDATETIME());";
+        //}
     }
+}
+
+    
 
 
