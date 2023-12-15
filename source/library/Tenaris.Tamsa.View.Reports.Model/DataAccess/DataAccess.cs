@@ -18,7 +18,8 @@ namespace Tenaris.Tamsa.View.Reports.Model.DataAccess
         public DataAccess()
         {
             _conexion = ConfigurationManager.ConnectionStrings["Connection"].ConnectionString;
-                /*ConfigurationManager.ConnectionStrings["connection"].ConnectionString;*/
+            /*ConfigurationManager.ConnectionStrings["connection"].ConnectionString;*/
+            Console.WriteLine();
         }
 
         public List<Pipe> CargarPipes()
