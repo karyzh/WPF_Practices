@@ -5,7 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tenaris.Tamsa.View.ViewModel.Configuration.Config
+namespace Tenaris.Tamsa.View.Reports.Model.Configuration
+
 {
     public class ReportsConfiguration : ConfigurationSection
     {

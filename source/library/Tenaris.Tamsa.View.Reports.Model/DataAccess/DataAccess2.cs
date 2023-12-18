@@ -15,11 +15,11 @@ namespace Tenaris.Tamsa.View.ViewModel
     {
         string cadenaConexion = "Data Source=TENARIS;Initial Catalog=TenarisPipes;Integrated Security=True";
 
-        private SqlConnection CN;
-        private SqlCommand CMD;
-        private SqlDataReader RDR;
+        //private SqlConnection CN;
+        //private SqlCommand CMD;
+        //private SqlDataReader RDR;
 
-        private SqlTransaction TR;
+        //private SqlTransaction TR;
 
 
         //public int GuardarNuevoTubo()

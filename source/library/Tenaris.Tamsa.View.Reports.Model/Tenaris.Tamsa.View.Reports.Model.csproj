@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\ReportsConfiguration.cs" />
+    <Compile Include="DataAccess\ConnectionDB.cs" />
     <Compile Include="DataAccess\DataAccess.cs" />
     <Compile Include="DataAccess\DataAccess2.cs" />
     <Compile Include="MainModel.cs" />

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tenaris.Tamsa.View.ViewModel.Configuration.Config;
+using Tenaris.Tamsa.View.Reports.Model.Configuration;
 
 
 namespace Tenaris.Tamsa.View.Reports.Model
@@ -35,16 +35,17 @@ namespace Tenaris.Tamsa.View.Reports.Model
             }
         }
 
-        public ReportsConfiguration Configuration { get; set; }
+
         #endregion
 
-        #region Methods
+        #region 
+        public ReportsConfiguration Configuration { get; set; }
         public void ConnectionTest()
         {
-            Configuration = (ReportsConfiguration)ConfigurationManager.GetSection("Configurations");
-            //Console.WriteLine(Configuration.Connection);
-            //Console.WriteLine(ConfigurationManager.ConnectionStrings[Configuration.Connection].ConnectionString);
-            //Console.WriteLine(Configuration.ConnectionTimeOut);
+            Configuration = (ReportsConfiguration)ConfigurationManager.GetSection("Configuration");
+            Console.WriteLine(Configuration.Connection);
+            Console.WriteLine(ConfigurationManager.ConnectionStrings[Configuration.Connection].ConnectionString);
+            Console.WriteLine(Configuration.ConnectionTimeOut);
         }
 
         #endregion

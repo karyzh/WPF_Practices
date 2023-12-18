@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using System.IO.Pipes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,8 +16,15 @@ namespace Tenaris.Tamsa.View.Reports.Model.DataAccess
     {
         private readonly string _conexion;
 
+        private SqlConnection CN;
+        private SqlCommand CMD;
+        private SqlDataReader RDR;
+        private SqlTransaction TR;
+        
+
         public string Conexion { get { return _conexion; } }
 
+        List<Pipe> lstPipes = new List<Pipe>();
         public DataAccess()
         {
             _conexion = ConfigurationManager.ConnectionStrings["Connection"].ConnectionString;
@@ -22,41 +32,90 @@ namespace Tenaris.Tamsa.View.Reports.Model.DataAccess
             Console.WriteLine();
         }
 
-        public List<Pipe> CargarPipes()
+        //OBTENER O CARGAR TUBOS
+        public void CargarPipes()
         {
-            List<Pipe> pipes = new List<Pipe>();
-            string query = "[TenarisPipes].[dbo.InformationPipes].[insertpipes]";
+            //string sp = "[TenarisPipes].[dbo].[sp_insertpipes]";
+
             try
             {
                 using (SqlConnection cn = new SqlConnection(Conexion))
                 {
                     cn.Open();
-                    SqlCommand cmd = new SqlCommand(query, cn)
+
+                    using (SqlCommand cmd = new SqlCommand("[TenarisPipes].[dbo].[sp_getpipes]", cn))
                     {
-                        CommandType = System.Data.CommandType.StoredProcedure
-                    };
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        pipes.Add(new Pipe
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        SqlDataReader sqlDataReader = cmd.ExecuteReader();
+                        while(sqlDataReader.Read())
                         {
-                            Id = (int)reader["Id"],
-                            Heat = (string)reader["Heat"],
-                            WO = (string)reader["WO"],
-                            CreateDate = (DateTimeOffset)reader["CreateDate"],
-                            UpdateDate = (DateTimeOffset)reader["UpdateDate"]
-                        });
+                            string formatStringInformationPipe = "Pipe({0}) have ({1}), work_order ({2}, created date ({3}) and Update date ({4}))";
+                            Console.WriteLine(formatStringInformationPipe ,sqlDataReader["ID"], sqlDataReader["Heat"], sqlDataReader["WO"], sqlDataReader["CreateDate"], sqlDataReader["UpdateDate"]);
+                        }
+
+                        sqlDataReader.Close();
+                        //cmd.Parameters.AddWithValue("@ID", pipe.Id);
+                        //cmd.Parameters.AddWithValue("@Heat", pipe.Heat);
+                        //cmd.Parameters.AddWithValue("@WO", pipe.WO);
+                        //cmd.Parameters.AddWithValue("@CreateDate", pipe.CreateDate);
+                        //cmd.Parameters.AddWithValue("@UpdateDate", pipe.UpdateDate);
+
+                        cmd.ExecuteNonQuery();
+                        cmd.Parameters.Clear();
                     }
-                    reader.Close();
                     cn.Close();
                 }
             }
             catch (Exception ex)
             {
-
+                // Manejar la excepción aquí
+                Console.WriteLine("Error: " + ex.Message);
+                Console.WriteLine(lstPipes);
             }
-            return pipes;
         }
+
+        //INSERTAR TUBOS
+        public void InsertarPipes()
+        {
+            //string sp = "[TenarisPipes].[dbo].[sp_insertpipes]";
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(Conexion))
+                {
+                    cn.Open();
+
+                    using (SqlCommand cmd = new SqlCommand("[TenarisPipes].[dbo].[sp_insertpipes]", cn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        SqlDataReader sqlDataReader = cmd.ExecuteReader();
+                        while (sqlDataReader.Read())
+                        {
+                            string formatStringInformationPipe = "Pipe({0}) have ({1}), work_order ({2}, created date ({3}) and Update date ({4}))";
+                            Console.WriteLine(formatStringInformationPipe, sqlDataReader["ID"], sqlDataReader["Heat"], sqlDataReader["WO"], sqlDataReader["CreateDate"], sqlDataReader["UpdateDate"]);
+                        }
+
+                        sqlDataReader.Close();
+                        //cmd.Parameters.AddWithValue("@ID", pipe.Id);
+                        //cmd.Parameters.AddWithValue("@Heat", pipe.Heat);
+                        //cmd.Parameters.AddWithValue("@WO", pipe.WO);
+                        //cmd.Parameters.AddWithValue("@CreateDate", pipe.CreateDate);
+                        //cmd.Parameters.AddWithValue("@UpdateDate", pipe.UpdateDate);
+
+                        cmd.ExecuteNonQuery();
+                        cmd.Parameters.Clear();
+                    }
+                    cn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar la excepción aquí
+                Console.WriteLine("Error: " + ex.Message);
+                Console.WriteLine(lstPipes);
+            }
+        }
+
     }
 }
 
