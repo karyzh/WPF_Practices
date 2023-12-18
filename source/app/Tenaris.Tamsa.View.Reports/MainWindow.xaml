@@ -21,8 +21,8 @@
         
         <Button Background="SkyBlue" Margin="571,23,92,363" Padding="3" x:Name="btnNuevo" Click="btnNuevo_Click" Content="Nuevo" ></Button>
         <Button Background="SkyBlue" Margin="571,91,92,295" Padding="3" Content="Cargar Tubos"  Command="{Binding BtnCargarTubos}" RenderTransformOrigin="1.127,0.437"/>
-        <Button Background="PapayaWhip" Margin="571,169,92,217" Padding="3" x:Name="btnActualizar" Click="btnActualizar_Click" Content="Actualizar" IsEnabled="False" RenderTransformOrigin="1.127,0.437"/>
-        <Button Background="PaleVioletRed" Margin="571,253,92,133" Padding="3" x:Name="btnEliminar" Click="btnEliminar_Click" Content="Eliminar" IsEnabled="False" RenderTransformOrigin="1.127,0.437"/>
+        <Button Background="PapayaWhip" Margin="571,169,92,217" Padding="3" x:Name="btnActualizar" Click="btnActualizar_Click" Content="Actualizar" RenderTransformOrigin="1.127,0.437"/>
+        <Button Background="PaleVioletRed" Margin="571,253,92,133" Padding="3" x:Name="btnEliminar" Click="btnEliminar_Click" Content="Eliminar" RenderTransformOrigin="1.127,0.437"/>
     </Grid>
    
 

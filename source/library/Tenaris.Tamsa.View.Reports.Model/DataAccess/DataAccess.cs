@@ -24,7 +24,7 @@ namespace Tenaris.Tamsa.View.Reports.Model.DataAccess
 
         public string Conexion { get { return _conexion; } }
 
-        List<Pipe> lstPipes = new List<Pipe>();
+        
         public DataAccess()
         {
             _conexion = ConfigurationManager.ConnectionStrings["Connection"].ConnectionString;
@@ -33,88 +33,54 @@ namespace Tenaris.Tamsa.View.Reports.Model.DataAccess
         }
 
         //OBTENER O CARGAR TUBOS
-        public void CargarPipes()
+        public List<Pipe> getPipes()
         {
             //string sp = "[TenarisPipes].[dbo].[sp_insertpipes]";
-
-            try
+            List<Pipe> result = new List<Pipe>();
+            using (SqlConnection cn = new SqlConnection(Conexion))
             {
-                using (SqlConnection cn = new SqlConnection(Conexion))
+
+                using (SqlCommand cmd = new SqlCommand("[TenarisPipes].[dbo].[sp_getpipes]", cn))
                 {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cn.Open();
 
-                    using (SqlCommand cmd = new SqlCommand("[TenarisPipes].[dbo].[sp_getpipes]", cn))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        SqlDataReader sqlDataReader = cmd.ExecuteReader();
-                        while(sqlDataReader.Read())
-                        {
                             string formatStringInformationPipe = "Pipe({0}) have ({1}), work_order ({2}, created date ({3}) and Update date ({4}))";
-                            Console.WriteLine(formatStringInformationPipe ,sqlDataReader["ID"], sqlDataReader["Heat"], sqlDataReader["WO"], sqlDataReader["CreateDate"], sqlDataReader["UpdateDate"]);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Console.WriteLine(formatStringInformationPipe, reader["ID"], reader["Heat"], reader["WO"], reader["CreateDate"], reader["UpdateDate"]);
+                            result.Add(new Pipe()
+                            {
+                                id = Convert.ToInt32(reader["ID"].ToString()),
+                                heat = Convert.ToInt32(reader["Heat"].ToString()),
+                                wo = Convert.ToInt32(reader["WO"].ToString()),
+                                //CreateDate = Convert.ToDateTime(reader["CreateDate"].ToString()),
+                                //UpdateDate = Convert.ToDateTime(reader["UpdateDate"].ToString()),
+
+                            });
                         }
-
-                        sqlDataReader.Close();
-                        //cmd.Parameters.AddWithValue("@ID", pipe.Id);
-                        //cmd.Parameters.AddWithValue("@Heat", pipe.Heat);
-                        //cmd.Parameters.AddWithValue("@WO", pipe.WO);
-                        //cmd.Parameters.AddWithValue("@CreateDate", pipe.CreateDate);
-                        //cmd.Parameters.AddWithValue("@UpdateDate", pipe.UpdateDate);
-
-                        cmd.ExecuteNonQuery();
-                        cmd.Parameters.Clear();
                     }
+
+                    //cmd.Parameters.AddWithValue("@ID", pipe.Id);
+                    //cmd.Parameters.AddWithValue("@Heat", pipe.Heat);
+                    //cmd.Parameters.AddWithValue("@WO", pipe.WO);
+                    //cmd.Parameters.AddWithValue("@CreateDate", pipe.CreateDate);
+                    //cmd.Parameters.AddWithValue("@UpdateDate", pipe.UpdateDate);
+
+                    cmd.ExecuteNonQuery();
+                    //cmd.Parameters.Clear();
                     cn.Close();
                 }
             }
-            catch (Exception ex)
-            {
-                // Manejar la excepción aquí
-                Console.WriteLine("Error: " + ex.Message);
-                Console.WriteLine(lstPipes);
-            }
+            Console.WriteLine("Esto es lo capturado de la base de datos -> ", result);
+            return result;
+
         }
 
         //INSERTAR TUBOS
-        public void InsertarPipes()
-        {
-            //string sp = "[TenarisPipes].[dbo].[sp_insertpipes]";
-
-            try
-            {
-                using (SqlConnection cn = new SqlConnection(Conexion))
-                {
-                    cn.Open();
-
-                    using (SqlCommand cmd = new SqlCommand("[TenarisPipes].[dbo].[sp_insertpipes]", cn))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        SqlDataReader sqlDataReader = cmd.ExecuteReader();
-                        while (sqlDataReader.Read())
-                        {
-                            string formatStringInformationPipe = "Pipe({0}) have ({1}), work_order ({2}, created date ({3}) and Update date ({4}))";
-                            Console.WriteLine(formatStringInformationPipe, sqlDataReader["ID"], sqlDataReader["Heat"], sqlDataReader["WO"], sqlDataReader["CreateDate"], sqlDataReader["UpdateDate"]);
-                        }
-
-                        sqlDataReader.Close();
-                        //cmd.Parameters.AddWithValue("@ID", pipe.Id);
-                        //cmd.Parameters.AddWithValue("@Heat", pipe.Heat);
-                        //cmd.Parameters.AddWithValue("@WO", pipe.WO);
-                        //cmd.Parameters.AddWithValue("@CreateDate", pipe.CreateDate);
-                        //cmd.Parameters.AddWithValue("@UpdateDate", pipe.UpdateDate);
-
-                        cmd.ExecuteNonQuery();
-                        cmd.Parameters.Clear();
-                    }
-                    cn.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                // Manejar la excepción aquí
-                Console.WriteLine("Error: " + ex.Message);
-                Console.WriteLine(lstPipes);
-            }
-        }
+        
 
     }
 }

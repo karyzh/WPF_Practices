@@ -35,14 +35,15 @@ namespace Tenaris.Tamsa.View.Reports.ViewModel.Views
         }
         private void CargarTubos()
         {
-            DataAccess.CargarPipes();
+            List<Pipe> pipesDb= DataAccess.getPipes();
+            Console.WriteLine("Pipes cargados desde la base de datos -> ", pipesDb);
             //foreach (var pipe in pipes)
             //{
             //    Console.WriteLine(pipe.Id);
             //}
 
             //Console.WriteLine("Estas son todos los tubos-> ",pipes);
-            
+
         }
     }
 }
