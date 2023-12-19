@@ -15,6 +15,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tenaris.Tamsa.View.Reports.ViewModel.Views;
+using Tenaris.Tamsa.View.Reports.Model.DataAccess;
 
 namespace Tenaris.Tamsa.View.Reports
 {
@@ -23,10 +25,15 @@ namespace Tenaris.Tamsa.View.Reports
     /// </summary>
     public partial class MainWindow : Window
     {
+        public MainWindowViewModel _viewModel;
         public MainWindow()
         {
             InitializeComponent();
+            _viewModel = new MainWindowViewModel();
+            DataContext = _viewModel;
         }
+
+
 
         //private void Window_Loaded(object sender, RoutedEventArgs e)
         //{
@@ -42,6 +49,10 @@ namespace Tenaris.Tamsa.View.Reports
         //    informationPipesViewSource.View.MoveCurrentToFirst();
         //}
 
+        private void MostrarTubos_Click(object sender, RoutedEventArgs e)
+        {
+            _viewModel.CargarTubos();
+        }
         private void btnNuevo_Click(object sender, RoutedEventArgs e)
         {
 
@@ -61,5 +72,7 @@ namespace Tenaris.Tamsa.View.Reports
         {
 
         }
+
+      
     }
 }

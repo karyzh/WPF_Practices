@@ -31,9 +31,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=2.0.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\log4net.2.0.15\lib\net45\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,9 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\ReportsConfiguration.cs" />
-    <Compile Include="DataAccess\ConnectionDB.cs" />
     <Compile Include="DataAccess\DataAccess.cs" />
     <Compile Include="DataAccess\DataAccess2.cs" />
+    <Compile Include="DataAccess\SP.cs" />
     <Compile Include="MainModel.cs" />
     <Compile Include="Models\Pipe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -55,6 +59,9 @@
       <Project>{17579ca0-92f0-4fb5-84a4-d7811e139485}</Project>
       <Name>Tenaris.Tamsa.View.Reports.Language</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

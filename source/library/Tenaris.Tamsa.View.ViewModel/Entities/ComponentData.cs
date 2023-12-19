@@ -32,7 +32,7 @@ namespace Tenaris.Tamsa.View.ViewModel.Entities
             set
             {
                 _id = value;
-                OnPropertyChanged(new PropertyChangedEventArgs("Id"));
+                OnPropertyChanged(new PropertyChangedEventArgs("ID"));
             }
         }
 
@@ -66,9 +66,9 @@ namespace Tenaris.Tamsa.View.ViewModel.Entities
             }
         }
 
-        private DateTime _createdate;
+        private DateTimeOffset _createdate;
 
-        public DateTime CreateDate
+        public DateTimeOffset CreateDate
         {
             get
             {
@@ -81,9 +81,9 @@ namespace Tenaris.Tamsa.View.ViewModel.Entities
             }
         }
 
-        private DateTime _updatedate;
+        private DateTimeOffset _updatedate;
 
-        public DateTime UpdateDate
+        public DateTimeOffset UpdateDate
         {
             get
             {
@@ -95,7 +95,8 @@ namespace Tenaris.Tamsa.View.ViewModel.Entities
             }
         }
 
-        public void Tubos(int id, int heat, int wo, DateTime createdate, DateTime updatedate) //no retorna a nada por eso se le pone void
+        //Constructor
+        public void Tubos(int id, int heat, int wo, DateTimeOffset createdate, DateTimeOffset updatedate) //no retorna a nada por eso se le pone void
         {
             
             this.Id = id;

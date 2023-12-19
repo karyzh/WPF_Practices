@@ -1,7 +1,10 @@
 ﻿using Microsoft.Practices.Prism.Commands;
+using Microsoft.Practices.Prism.ViewModel;
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,15 +13,25 @@ using Tenaris.Tamsa.View.Reports.Model;
 using Tenaris.Tamsa.View.Reports.Model.DataAccess;
 using Tenaris.Tamsa.View.Reports.Model.Models;
 using Tenaris.Tamsa.View.Reports.ViewModel.Entities;
+using Tenaris.Tamsa.View.ViewModel.Views;
 
 namespace Tenaris.Tamsa.View.Reports.ViewModel.Views
 {
-    public class MainWindowViewModel
+    public class MainWindowViewModel : NotificationObject
     {
             public MainModel MainModel { get; set; }
        
         public ComponentsWindows Components { get; set; }
+
+    
+
         public ICommand BtnCargarTubos { get; set; }
+
+        public ICommand BtnInsertar {  get; set; }
+
+        public ICommand BtnActualizar { get; set; }
+
+        public ICommand BtnEliminar { get; set; }
 
         public DataAccess DataAccess { get; set; }
 
@@ -32,18 +45,23 @@ namespace Tenaris.Tamsa.View.Reports.ViewModel.Views
                     {
                         Title = ""
                     };
+            pipes = new ObservableCollection<Pipe>(); //inicializando la colección observable vacía 
         }
-        private void CargarTubos()
+        private static ObservableCollection<Pipe>  pipes;
+        public ObservableCollection<Pipe> Pipes
         {
-            List<Pipe> pipesDb= DataAccess.getPipes();
-            Console.WriteLine("Pipes cargados desde la base de datos -> ", pipesDb);
-            //foreach (var pipe in pipes)
-            //{
-            //    Console.WriteLine(pipe.Id);
-            //}
-
-            //Console.WriteLine("Estas son todos los tubos-> ",pipes);
-
+            get { return pipes; }
+            set
+            {
+                pipes = value;
+                RaisePropertyChanged(nameof(Pipes));
+            }
+        }
+        public void CargarTubos()
+        {
+            Pipes = new ObservableCollection<Pipe>(DataAccess.getPipes()); //Casteo de una colección observable de tubos
+            Console.WriteLine($"Número de tubos cargados: {Pipes.Count}");
+            
         }
     }
 }
