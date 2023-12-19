@@ -40,12 +40,16 @@ namespace Tenaris.Tamsa.View.Reports.ViewModel.Views
                     MainModel = MainModel.Instance;
                     DataAccess = new DataAccess();
                     MainModel.Instance.ConnectionTest();
+                    BtnInsertar = new DelegateCommand(InsertarTubos);
                     BtnCargarTubos = new DelegateCommand(CargarTubos);
+                    BtnActualizar = new DelegateCommand(ActualizarTubos);
+                    BtnEliminar = new DelegateCommand(EliminarTubos);
                     Components = new ComponentsWindows
                     {
                         Title = ""
                     };
             pipes = new ObservableCollection<Pipe>(); //inicializando la colección observable vacía 
+         
         }
         private static ObservableCollection<Pipe>  pipes;
         public ObservableCollection<Pipe> Pipes
@@ -62,6 +66,30 @@ namespace Tenaris.Tamsa.View.Reports.ViewModel.Views
             Pipes = new ObservableCollection<Pipe>(DataAccess.getPipes()); //Casteo de una colección observable de tubos
             Console.WriteLine($"Número de tubos cargados: {Pipes.Count}");
             
+        }
+
+        public void LoadData()
+        {
+            Pipes = new ObservableCollection<Pipe>(DataAccess.getPipes());
+        }
+        public void InsertarTubos()
+        {
+           
+            DataAccess.insertPipes(Pipes.ToList());
+            Pipes.Clear();
+            CargarTubos();
+            Console.WriteLine($"Numero de tubos insertados: {Pipes.Count}");
+        
+        }
+
+        public void ActualizarTubos()
+        {
+
+        }
+
+        public void EliminarTubos()
+        {
+
         }
     }
 }

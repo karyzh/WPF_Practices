@@ -63,14 +63,6 @@ namespace Tenaris.Tamsa.View.Reports.Model.DataAccess
                     reader.Close();
                     cn.Close();
 
-
-                    //cmd.Parameters.Clear();
-                    //cmd.Parameters.AddWithValue("@ID", pipe.Id);
-                    //cmd.Parameters.AddWithValue("@Heat", pipe.Heat);
-                    //cmd.Parameters.AddWithValue("@WO", pipe.WO);
-                    //cmd.Parameters.AddWithValue("@CreateDate", pipe.CreateDate);
-                    //cmd.Parameters.AddWithValue("@UpdateDate", pipe.UpdateDate);
-
                 }
             }catch (Exception ex)
             {
@@ -82,8 +74,72 @@ namespace Tenaris.Tamsa.View.Reports.Model.DataAccess
             
         }
 
+        public void Clear()
+        {
+            string query = "[TenarisPipes].[dbo].[sp_deleteall]";
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(Conexion))
+                {
+                    cn.Open();
+                    SqlCommand cmd = new SqlCommand(@query, cn)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch(Exception ex)
+            {
+                log.Info($"Error al insertar los tubos");
+                log.Error(ex);
+            }
+        }
+
+
         //Insertar tubos
-        
+        public List<Pipe> insertPipes(List<Pipe> lstPipe)
+        {
+
+            string query = "[TenarisPipes].[dbo].[sp_insertpipes]";
+            try
+            {
+                 
+                using (SqlConnection cn = new SqlConnection(Conexion))
+                {
+                    cn.Open();
+                    Clear();
+                    SqlCommand cmd = new SqlCommand(@query, cn)
+                    {
+
+                        CommandType = CommandType.StoredProcedure
+                    };
+                    
+                    foreach (Pipe pipe in lstPipe) {
+                       
+                        cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@ID", pipe.id );
+                    cmd.Parameters.AddWithValue("@Heat", pipe.heat);
+                    cmd.Parameters.AddWithValue("@WO", pipe.wo);
+                    //cmd.Parameters.AddWithValue("@CreateDate", pipe.CreateDate);
+                    //cmd.Parameters.AddWithValue("@UpdateDate", pipe.UpdateDate);
+                       cmd.ExecuteNonQuery();
+                        log.Info($"Executed SP {query}: {pipe}");
+                    }
+                    cn.Close();
+                }
+            } catch (Exception ex)
+            {
+                log.Info($"Error al insertar los tubos");
+                log.Error(ex);
+            }
+                return getPipes();
+        }
+
+
+        //ACTUALIZAR TUBOS
+
+
     }
         
 }
