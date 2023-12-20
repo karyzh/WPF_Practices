@@ -59,22 +59,24 @@ namespace Tenaris.Tamsa.View.Reports.Model.DataAccess
                             UpdateDate = (DateTimeOffset)reader["UpdateDate"]
                         });
                     }
+                  
                     log.Info($"Executed SP {query}");
                     reader.Close();
                     cn.Close();
-
+                    
                 }
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 log.Info($"Error al obtener datos de la base de datos");
                 log.Error(ex);
-                
+
             }
             return lstResults;
-            
+
         }
 
-        public void Clear()
+        public void Clear()  //Método para eliminar los registros de la tabla
         {
             string query = "[TenarisPipes].[dbo].[sp_deleteall]";
             try
@@ -89,7 +91,7 @@ namespace Tenaris.Tamsa.View.Reports.Model.DataAccess
                     cmd.ExecuteNonQuery();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 log.Info($"Error al insertar los tubos");
                 log.Error(ex);
@@ -104,48 +106,162 @@ namespace Tenaris.Tamsa.View.Reports.Model.DataAccess
             string query = "[TenarisPipes].[dbo].[sp_insertpipes]";
             try
             {
-                 
+
                 using (SqlConnection cn = new SqlConnection(Conexion))
                 {
                     cn.Open();
-                    Clear();
+                    Clear(); //Se manda a llamar
                     SqlCommand cmd = new SqlCommand(@query, cn)
                     {
 
                         CommandType = CommandType.StoredProcedure
                     };
-                    
-                    foreach (Pipe pipe in lstPipe) {
-                       
+
+                    foreach (Pipe pipe in lstPipe)
+                    {
+
                         cmd.Parameters.Clear();
-                    cmd.Parameters.AddWithValue("@ID", pipe.id );
-                    cmd.Parameters.AddWithValue("@Heat", pipe.heat);
-                    cmd.Parameters.AddWithValue("@WO", pipe.wo);
-                    //cmd.Parameters.AddWithValue("@CreateDate", pipe.CreateDate);
-                    //cmd.Parameters.AddWithValue("@UpdateDate", pipe.UpdateDate);
-                       cmd.ExecuteNonQuery();
+                        cmd.Parameters.AddWithValue("@ID", pipe.id);
+                        cmd.Parameters.AddWithValue("@Heat", pipe.heat);
+                        cmd.Parameters.AddWithValue("@WO", pipe.wo);
+                        //cmd.Parameters.AddWithValue("@CreateDate", pipe.CreateDate);
+                        //cmd.Parameters.AddWithValue("@UpdateDate", pipe.UpdateDate);
+                        cmd.ExecuteNonQuery();
                         log.Info($"Executed SP {query}: {pipe}");
                     }
                     cn.Close();
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 log.Info($"Error al insertar los tubos");
                 log.Error(ex);
             }
-                return getPipes();
+            return getPipes();
         }
 
+       
 
-        //ACTUALIZAR TUBOS
+        public void updatePipe(Pipe updPipe)
+        {
+            string query = "[TenarisPipes].[dbo].[sp_updatepipe]";
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(Conexion))
+                {
+                    cn.Open();
+                    SqlCommand cmd = new SqlCommand(query, cn)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
 
+                    cmd.Parameters.AddWithValue("@ID", updPipe.id);
+                    cmd.Parameters.AddWithValue("@Heat", updPipe.heat);
+                    cmd.Parameters.AddWithValue("@WO", updPipe.wo);
+                    // cmd.Parameters.AddWithValue("@CreateDate", updPipe.CreateDate);
+                    // cmd.Parameters.AddWithValue("@UpdateDate", updPipe.UpdateDate);
+
+                    log.Info($"Executed SP {query}: {updPipe}");
+                    cmd.ExecuteNonQuery();
+                    cn.Close();
+                }
+            
+            }
+            catch (Exception ex)
+            {
+                log.Info($"Error al actualizar el tubo");
+                log.Error(ex);
+
+            }
+        }
+
+        //Eliminar tubo
+        public void deletePipe(Pipe dltPipe)
+            {
+          
+            string query = "[TenarisPipes].[dbo].[sp_deletepipe]";
+            try
+            {
+
+                using (SqlConnection cn = new SqlConnection(Conexion))
+                {
+                    cn.Open();
+               
+                    SqlCommand cmd = new SqlCommand(@query, cn)
+                    {
+
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.AddWithValue("@ID", dltPipe.id);
+                        //cmd.Parameters.AddWithValue("@Heat", pipe.heat);
+                        //cmd.Parameters.AddWithValue("@WO", pipe.wo);
+                        ////cmd.Parameters.AddWithValue("@CreateDate", pipe.CreateDate);
+                        ////cmd.Parameters.AddWithValue("@UpdateDate", pipe.UpdateDate);
+                        cmd.ExecuteNonQuery();
+                        log.Info($"Executed SP {query}: {dltPipe}");
+                        cn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Info($"Error al borrar los tubos");
+                log.Error(ex);
+            }
+
+        }
 
     }
-        
 }
-            
 
 
 
 
 
+//ACTUALIZAR TUBOS
+// public void updatePipes(List<Pipe> updPipe)
+// public List<Pipe> updatePipes(List<Pipe> updPipe) 
+//{
+//    string query = "[TenarisPipes].[dbo].[sp_updatepipe]";
+//    try
+//    {
+
+//        using (SqlConnection cn = new SqlConnection(Conexion))
+//        {
+//            cn.Open();
+//            SqlCommand cmd = new SqlCommand(@query, cn)
+//            {
+
+//                CommandType = CommandType.StoredProcedure
+//            };
+//            foreach (Pipe pipe in updPipe)
+//            {
+//                cmd.Parameters.Clear();
+//                cmd.Parameters.AddWithValue("@ID", pipe.id);
+//                //cmd.Parameters.AddWithValue("@Heat", pipe.heat);
+//                //cmd.Parameters.AddWithValue("@WO", pipe.wo);
+//                //cmd.Parameters.AddWithValue("@CreateDate", pipe.CreateDate);
+//                //cmd.Parameters.AddWithValue("@UpdateDate", pipe.UpdateDate);
+//                log.Info($"Executed SP {query}: {pipe}");
+
+//                cmd.ExecuteNonQuery();
+
+//            Console.WriteLine(pipe);
+
+//            }
+//            cn.Close();
+//        }
+
+
+//    }
+//    catch (Exception ex)
+//    {
+//        log.Info($"Error al actualizar el tubo");
+//        log.Error(ex);
+//    }
+//    return getPipes();
+
+
+
+//}
