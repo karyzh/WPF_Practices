@@ -71,19 +71,31 @@ namespace Tenaris.Tamsa.View.Reports
 
         private void btnEliminar_Click(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void GridPipes(object sender, SelectionChangedEventArgs e) //Evento donde hace selección para la actualización de un registro.
         {
             if (sender is DataGrid dataGrid)
             {
-                if (dataGrid.SelectedItem is Pipe selectedPipe)  
+                if (dataGrid.SelectedItem is Pipe selectedPipe)
                 {
                     _viewModel.SelectedPipe = selectedPipe;
                 }
-            }
+                 else if (dataGrid.SelectedItem is Pipe selectedPipeForDeletion)
+        {
+                    _viewModel.SelectedPipeForDeletion = selectedPipeForDeletion;
+
         }
+            }
+             
+
+
+
+        }
+
+
+
+
 
 
 

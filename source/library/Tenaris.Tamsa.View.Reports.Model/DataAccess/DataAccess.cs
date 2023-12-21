@@ -59,11 +59,11 @@ namespace Tenaris.Tamsa.View.Reports.Model.DataAccess
                             UpdateDate = (DateTimeOffset)reader["UpdateDate"]
                         });
                     }
-                  
+
                     log.Info($"Executed SP {query}");
                     reader.Close();
                     cn.Close();
-                    
+
                 }
             }
             catch (Exception ex)
@@ -140,7 +140,7 @@ namespace Tenaris.Tamsa.View.Reports.Model.DataAccess
             return getPipes();
         }
 
-       
+
 
         public void updatePipe(Pipe updPipe)
         {
@@ -158,14 +158,13 @@ namespace Tenaris.Tamsa.View.Reports.Model.DataAccess
                     cmd.Parameters.AddWithValue("@ID", updPipe.id);
                     cmd.Parameters.AddWithValue("@Heat", updPipe.heat);
                     cmd.Parameters.AddWithValue("@WO", updPipe.wo);
-                    // cmd.Parameters.AddWithValue("@CreateDate", updPipe.CreateDate);
-                    // cmd.Parameters.AddWithValue("@UpdateDate", updPipe.UpdateDate);
+                
 
                     log.Info($"Executed SP {query}: {updPipe}");
                     cmd.ExecuteNonQuery();
                     cn.Close();
                 }
-            
+
             }
             catch (Exception ex)
             {
@@ -177,8 +176,8 @@ namespace Tenaris.Tamsa.View.Reports.Model.DataAccess
 
         //Eliminar tubo
         public void deletePipe(Pipe dltPipe)
-            {
-          
+        {
+
             string query = "[TenarisPipes].[dbo].[sp_deletepipe]";
             try
             {
@@ -186,22 +185,18 @@ namespace Tenaris.Tamsa.View.Reports.Model.DataAccess
                 using (SqlConnection cn = new SqlConnection(Conexion))
                 {
                     cn.Open();
-               
+
                     SqlCommand cmd = new SqlCommand(@query, cn)
                     {
 
                         CommandType = CommandType.StoredProcedure
                     };
 
-                        cmd.Parameters.Clear();
-                        cmd.Parameters.AddWithValue("@ID", dltPipe.id);
-                        //cmd.Parameters.AddWithValue("@Heat", pipe.heat);
-                        //cmd.Parameters.AddWithValue("@WO", pipe.wo);
-                        ////cmd.Parameters.AddWithValue("@CreateDate", pipe.CreateDate);
-                        ////cmd.Parameters.AddWithValue("@UpdateDate", pipe.UpdateDate);
-                        cmd.ExecuteNonQuery();
-                        log.Info($"Executed SP {query}: {dltPipe}");
-                        cn.Close();
+                    cmd.Parameters.AddWithValue("@ID", dltPipe.id);
+                   
+                    log.Info($"Executed SP {query}: {dltPipe}");
+                    cmd.ExecuteNonQuery();
+                    cn.Close();
                 }
             }
             catch (Exception ex)
