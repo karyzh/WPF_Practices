@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Practices.Prism.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Tenaris.Tamsa.View.Reports.Model.Models
 {
 
     //BINDING PATH EN MAINWINDOW.XAML
-    public class Pipe
+    public class Pipe : NotificationObject
     {
         public int id { get; set; }
         public int heat { get; set; }

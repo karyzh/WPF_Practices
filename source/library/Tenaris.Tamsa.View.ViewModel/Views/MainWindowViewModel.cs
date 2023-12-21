@@ -35,6 +35,8 @@ namespace Tenaris.Tamsa.View.Reports.ViewModel.Views
 
         public DataAccess DataAccess { get; set; }
 
+        public Pipe SelectedPipe { get; set; }
+
         public MainWindowViewModel()
         {
                     MainModel = MainModel.Instance;
@@ -85,50 +87,69 @@ namespace Tenaris.Tamsa.View.Reports.ViewModel.Views
 
         public void ActualizarTubos()
         {
-
-            if (Pipes != null && Pipes.Count > 0)
+            if (SelectedPipe != null)
             {
-                var pipeToUpdate = Pipes[0]; // Obtiene el primer elemento de la lista
-                DataAccess.updatePipe(pipeToUpdate); // Actualiza en la base de datos
+                DataAccess.updatePipe(SelectedPipe);
 
-                // Refrescar el objeto Pipe con los datos actualizados desde la base de datos
-                var updatedPipe = DataAccess.getPipes().FirstOrDefault(Pipes => Pipes.id == pipeToUpdate.id);
-
-                if (updatedPipe != null)
+                var index = Pipes.IndexOf(SelectedPipe);
+                if (index != -1)
                 {
-                    // Encuentra el índice del objeto Pipe original en la lista Pipes
-                    var index = Pipes.IndexOf(pipeToUpdate);
-                    if (index != -1)
+                    var updatedPipe = DataAccess.getPipes().FirstOrDefault(p => p.id == SelectedPipe.id);
+                    if (updatedPipe != null)
                     {
-                        // Reemplaza el objeto Pipe original en la lista con el objeto actualizado
                         Pipes[index] = updatedPipe;
-
-                        // Notifica a la vista que ha habido cambios en los datos
                         RaisePropertyChanged(nameof(Pipes));
-
                         Console.WriteLine("Tubo actualizado correctamente");
                     }
                 }
-                else
-                {
-                    Console.WriteLine("No se encontró el tubo actualizado");
-                }
+            }
+            else
+            {
+                Console.WriteLine("Ningún tubo seleccionado para actualizar");
             }
 
-          
 
-            //  DataAccess.updatePipe(Pipe);
-            //Pipes.Clear();
-            //LoadData();
 
-            Console.WriteLine($"Número de tubos actualizados: {Pipes.Count}");
+            //if (Pipes != null && Pipes.Count > 0)
+            //{
+            //    var pipeToUpdate = Pipes[0]; // Aquí se obtiene el primer elemento de la lista
+            //    DataAccess.updatePipe(pipeToUpdate); // Se actualiza en la base de datos
+
+            //    // Se refresca el objeto Pipe con los datos actualizados desde la base de datos
+            //    var updatedPipe = DataAccess.getPipes().FirstOrDefault(Pipes => Pipes.id == pipeToUpdate.id);
+
+            //    if (updatedPipe != null) //Si es diferente de nulo
+            //    {
+            //        // Encuentra el índice del objeto Pipe original en la lista de Pipes
+            //        var index = Pipes.IndexOf(pipeToUpdate);
+            //        if (index != -1)
+            //        {
+
+            //            Pipes[index] = updatedPipe;  // Se reemplaza el objeto Pipe original en la lista con el objeto actualizado
+
+            //            // Notificamos a la vista que ha hubo cambios en los datos
+            //            RaisePropertyChanged(nameof(Pipes));
+
+            //            Console.WriteLine("Tubo actualizado correctamente");
+            //        }
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine("No se encontró el tubo actualizado");
+            //    }
+            //}
+            // //  DataAccess.updatePipe(Pipe);
+            ////Pipes.Clear();
+            ////LoadData();
+
+            //Console.WriteLine($"Número de tubos actualizados: {Pipes.Count}");
         }
 
         public void EliminarTubos()
         {
             if (Pipes != null && Pipes.Count > 0)
             {
-                var pipeToDelete = Pipes[0]; // Obtener el primer elemento de la lista (o el que desees eliminar)
+                var pipeToDelete = Pipes[0]; // Obtenemos el primer elemento de la lista (o el que desees eliminar)
                 DataAccess.deletePipe(pipeToDelete); // Elimina el tubo de la base de datos por su ID
 
                 // Remover el tubo de la lista local
@@ -143,12 +164,6 @@ namespace Tenaris.Tamsa.View.Reports.ViewModel.Views
             {
                 Console.WriteLine("No hay tubos para eliminar");
             }
-
-
-
-            //DataAccess.deletePipe(Pipes.ToList());
-
-            //Console.WriteLine($"Número de tubos eliminados: {Pipes.Count}");
         }
     }
 }

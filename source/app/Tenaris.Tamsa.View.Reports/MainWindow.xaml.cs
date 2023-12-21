@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Tenaris.Tamsa.View.Reports.ViewModel.Views;
 using Tenaris.Tamsa.View.Reports.Model.DataAccess;
+using Tenaris.Tamsa.View.Reports.Model.Models;
 
 namespace Tenaris.Tamsa.View.Reports
 {
@@ -73,6 +74,18 @@ namespace Tenaris.Tamsa.View.Reports
 
         }
 
-      
+        private void GridPipes(object sender, SelectionChangedEventArgs e) //Evento donde hace selección para la actualización de un registro.
+        {
+            if (sender is DataGrid dataGrid)
+            {
+                if (dataGrid.SelectedItem is Pipe selectedPipe)  
+                {
+                    _viewModel.SelectedPipe = selectedPipe;
+                }
+            }
+        }
+
+
+
     }
 }
