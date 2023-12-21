@@ -38,7 +38,7 @@ namespace Tenaris.Tamsa.View.Reports.ViewModel.Views
 
         public Pipe SelectedPipe { get; set; }
 
-        public Pipe SelectedPipeForDeletion { get; set; }
+       
 
 
 

@@ -81,11 +81,7 @@ namespace Tenaris.Tamsa.View.Reports
                 {
                     _viewModel.SelectedPipe = selectedPipe;
                 }
-                 else if (dataGrid.SelectedItem is Pipe selectedPipeForDeletion)
-        {
-                    _viewModel.SelectedPipeForDeletion = selectedPipeForDeletion;
-
-        }
+              
             }
              
 
