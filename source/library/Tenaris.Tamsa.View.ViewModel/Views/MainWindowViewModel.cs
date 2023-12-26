@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using Tenaris.Library.Log;
 using System.Text;
 using System.Threading.Tasks;
 using log4net;
@@ -73,7 +74,7 @@ namespace Tenaris.Tamsa.View.Reports.ViewModel.Views
         public void CargarTubos()
         {
             Pipes = new ObservableCollection<Pipe>(DataAccess.getPipes()); //Casteo de una colección observable de tubos
-            log.Info($"Número de tubos cargados: {Pipes.Count}");
+            Library.Log.Trace.Message($"Número de tubos cargados: {Pipes.Count}");
             
         }
 
@@ -88,7 +89,7 @@ namespace Tenaris.Tamsa.View.Reports.ViewModel.Views
            
             DataAccess.insertPipes(Pipes.ToList());
 
-            log.Info($"Numero de tubos insertados: {Pipes.Count}");
+            Library.Log.Trace.Message($"Numero de tubos insertados: {Pipes.Count}");
         
         }
 
@@ -109,13 +110,13 @@ namespace Tenaris.Tamsa.View.Reports.ViewModel.Views
                     {
                         Pipes[index] = updatedPipe;
                         RaisePropertyChanged(nameof(Pipes));
-                        log.Info("Tubo actualizado correctamente");
+                        Library.Log.Trace.Message("Tubo actualizado correctamente");
                     }
                 }
             }
             else
             {
-                log.Info("Ningún tubo seleccionado para actualizar");
+                Library.Log.Trace.Message("Ningún tubo seleccionado para actualizar");
             }
 
         }
@@ -127,11 +128,11 @@ namespace Tenaris.Tamsa.View.Reports.ViewModel.Views
                 DataAccess.deletePipe(SelectedPipe);
                Pipes.Remove(SelectedPipe);
                 RaisePropertyChanged(nameof(Pipes));
-                log.Info("Tubo eliminado correctamente");
+                Library.Log.Trace.Message("Tubo eliminado correctamente");
             }
             else
             {
-                log.Info("Ningún tubo seleccionado para eliminar");
+                Library.Log.Trace.Message("Ningún tubo seleccionado para eliminar");
             }
 
         }

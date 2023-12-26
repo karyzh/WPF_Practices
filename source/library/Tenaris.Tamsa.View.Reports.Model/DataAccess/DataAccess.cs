@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using log4net;
 using System.Diagnostics;
+using Tenaris.Library.Log;
 using System.IO.Pipes;
 using System.Linq;
 using System.Text;
@@ -60,7 +61,7 @@ namespace Tenaris.Tamsa.View.Reports.Model.DataAccess
                         });
                     }
 
-                    log.Info($"Executed SP {query}");
+                    Library.Log.Trace.Message($"Executed SP {query}");
                     reader.Close();
                     cn.Close();
 
@@ -68,8 +69,8 @@ namespace Tenaris.Tamsa.View.Reports.Model.DataAccess
             }
             catch (Exception ex)
             {
-                log.Info($"Error al obtener datos de la base de datos");
-                log.Error(ex);
+                Library.Log.Trace.Error($"Error al obtener datos de la base de datos");
+                Library.Log.Trace.Error($"{ex}");
 
             }
             return lstResults;
@@ -93,8 +94,8 @@ namespace Tenaris.Tamsa.View.Reports.Model.DataAccess
             }
             catch (Exception ex)
             {
-                log.Info($"Error al insertar los tubos");
-                log.Error(ex);
+                Library.Log.Trace.Error($"Error al insertar los tubos");
+                Library.Log.Trace.Error($"{ex}");
             }
         }
 
@@ -127,15 +128,15 @@ namespace Tenaris.Tamsa.View.Reports.Model.DataAccess
                         //cmd.Parameters.AddWithValue("@CreateDate", pipe.CreateDate);
                         //cmd.Parameters.AddWithValue("@UpdateDate", pipe.UpdateDate);
                         cmd.ExecuteNonQuery();
-                        log.Info($"Executed SP {query}: {pipe}");
+                        Library.Log.Trace.Message($"Executed SP {query}: {pipe}");
                     }
                     cn.Close();
                 }
             }
             catch (Exception ex)
             {
-                log.Info($"Error al insertar los tubos");
-                log.Error(ex);
+                Library.Log.Trace.Error($"Error al insertar los tubos");
+                Library.Log.Trace.Error($"{ex}");
             }
             return getPipes();
         }
@@ -158,9 +159,9 @@ namespace Tenaris.Tamsa.View.Reports.Model.DataAccess
                     cmd.Parameters.AddWithValue("@ID", updPipe.id);
                     cmd.Parameters.AddWithValue("@Heat", updPipe.heat);
                     cmd.Parameters.AddWithValue("@WO", updPipe.wo);
-                
 
-                    log.Info($"Executed SP {query}: {updPipe}");
+
+                    Library.Log.Trace.Message($"Executed SP {query}: {updPipe}");
                     cmd.ExecuteNonQuery();
                     cn.Close();
                 }
@@ -168,8 +169,8 @@ namespace Tenaris.Tamsa.View.Reports.Model.DataAccess
             }
             catch (Exception ex)
             {
-                log.Info($"Error al actualizar el tubo");
-                log.Error(ex);
+                Library.Log.Trace.Error($"Error al actualizar el tubo");
+                Library.Log.Trace.Error($"{ex}");
 
             }
         }
@@ -193,16 +194,16 @@ namespace Tenaris.Tamsa.View.Reports.Model.DataAccess
                     };
 
                     cmd.Parameters.AddWithValue("@ID", dltPipe.id);
-                   
-                    log.Info($"Executed SP {query}: {dltPipe}");
+
+                    Library.Log.Trace.Message($"Executed SP {query}: {dltPipe}");
                     cmd.ExecuteNonQuery();
                     cn.Close();
                 }
             }
             catch (Exception ex)
             {
-                log.Info($"Error al borrar los tubos");
-                log.Error(ex);
+                Library.Log.Trace.Error($"Error al borrar los tubos");
+                Library.Log.Trace.Error($"{ex}");
             }
 
         }
