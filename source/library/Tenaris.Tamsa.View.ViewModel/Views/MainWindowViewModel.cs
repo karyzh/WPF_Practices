@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using log4net;
 using System.Windows.Input;
 using Tenaris.Tamsa.View.Reports.Model;
 using Tenaris.Tamsa.View.Reports.Model.DataAccess;
@@ -18,6 +19,7 @@ using Tenaris.Tamsa.View.ViewModel.Views;
 
 namespace Tenaris.Tamsa.View.Reports.ViewModel.Views
 {
+
     public class MainWindowViewModel : NotificationObject
     {
             public MainModel MainModel { get; set; }
@@ -38,8 +40,8 @@ namespace Tenaris.Tamsa.View.Reports.ViewModel.Views
 
         public Pipe SelectedPipe { get; set; }
 
-       
 
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
 
         public MainWindowViewModel()
@@ -71,22 +73,22 @@ namespace Tenaris.Tamsa.View.Reports.ViewModel.Views
         public void CargarTubos()
         {
             Pipes = new ObservableCollection<Pipe>(DataAccess.getPipes()); //Casteo de una colección observable de tubos
-            Console.WriteLine($"Número de tubos cargados: {Pipes.Count}");
+            log.Info($"Número de tubos cargados: {Pipes.Count}");
             
         }
 
-        public void LoadData()
-        {
-            Pipes = new ObservableCollection<Pipe>(DataAccess.getPipes());
-        }
+        //public void LoadData()
+        //{
+        //    Pipes = new ObservableCollection<Pipe>(DataAccess.getPipes());
+        //}
 
         
         public void InsertarTubos()
         {
            
             DataAccess.insertPipes(Pipes.ToList());
-             
-            Console.WriteLine($"Numero de tubos insertados: {Pipes.Count}");
+
+            log.Info($"Numero de tubos insertados: {Pipes.Count}");
         
         }
 
@@ -107,19 +109,16 @@ namespace Tenaris.Tamsa.View.Reports.ViewModel.Views
                     {
                         Pipes[index] = updatedPipe;
                         RaisePropertyChanged(nameof(Pipes));
-                        Console.WriteLine("Tubo actualizado correctamente");
+                        log.Info("Tubo actualizado correctamente");
                     }
                 }
             }
             else
             {
-                Console.WriteLine("Ningún tubo seleccionado para actualizar");
+                log.Info("Ningún tubo seleccionado para actualizar");
             }
 
         }
-
-
-
 
         public void EliminarTubos()
         {
@@ -128,37 +127,14 @@ namespace Tenaris.Tamsa.View.Reports.ViewModel.Views
                 DataAccess.deletePipe(SelectedPipe);
                Pipes.Remove(SelectedPipe);
                 RaisePropertyChanged(nameof(Pipes));
-                Console.WriteLine("Tubo eliminado correctamente");
+                log.Info("Tubo eliminado correctamente");
             }
             else
             {
-                Console.WriteLine("Ningún tubo seleccionado para eliminar");
+                log.Info("Ningún tubo seleccionado para eliminar");
             }
 
         }
-
-
-
-        //if (Pipes != null && Pipes.Count > 0)
-        //{
-        //    var pipeToDelete = Pipes[0]; // Obtenemos el primer elemento de la lista (o el que desees eliminar)
-        //    DataAccess.deletePipe(pipeToDelete); // Elimina el tubo de la base de datos por su ID
-
-        //    // Remover el tubo de la lista local
-        //    Pipes.Remove(pipeToDelete);
-
-        //    // Notificar a la vista que hubo cambios en los datos
-        //    RaisePropertyChanged(nameof(Pipes));
-
-        //    Console.WriteLine("Tubo eliminado correctamente");
-        //}
-        //else
-        //{
-        //    Console.WriteLine("No hay tubos para eliminar");
-        //}
-
-   
-    
     }
 }
 
